@@ -1,18 +1,42 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { Link, useNavigate } from "react-router-dom";
 import gif from '../assets/Animated Logo in Violet Gradient Tech Style.gif';
-import image from '../assets/Animated Logo in Violet Gradient Tech Style.jpg';
+import Logoimage from '../assets/Animated Logo in Violet Gradient Tech Style.jpg';
 
 export default function PaginaLogin() {
+
   const [showGif, setShowGif] = useState(true);
   const [showImage, setShowImage] = useState(false);
+  const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+  const [password, setPassword] = useState('');
+  const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    
+    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
+    const body = { email, name, image, password };
+    
+    try {
+      const response = await axios.post(URL, body);
+      if (response.status === 200) {
+      navigate('/');
+      } else {
+      throw new Error(response.data);
+      }
+      } catch (error) {
+      alert(error.message);
+      }
+      };
 
   useEffect(() => {
     const tempoEspera = 3000;
 
-    const timer = setTimeout(() => {
+    const timer = setTimeout(() => {  
       setShowGif(false);
       setShowImage(true);
     }, tempoEspera);
@@ -21,27 +45,25 @@ export default function PaginaLogin() {
   }, []);
 
   return (
-    <>
-    <Body>
+    <Container>
       <Form>
         {showGif ? (
           <Logo src={gif} alt="" />
         ) : showImage ? (
-          <Logo src={image} alt="" />
+          <Logo src={Logoimage} alt="" />
         ) : null}
-        <Input type="email" placeholder="EMAIL" name="email" />
-        <Input type="password" placeholder="SENHA" name="senha" />
-        <Input type="nome" placeholder="NOME" name="nome" />
-        <Input type="foto" placeholder="FOTO" name="foto" />
-        <Button data-identifier="login-btn">LOGIN</Button>
+        <Input value={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder="EMAIL" name="email" required/>
+        <Input value={name} type="text" placeholder="NOME" onChange={(e) => setName(e.target.value)} name="nome" required />
+        <Input value={image} type="url" placeholder="FOTO" onChange={(e) => setImage(e.target.value)} name="foto" required />
+        <Input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="SENHA" name="senha" required/>
+        <Button type="submit" onClick={handleRegister}>CADASTRAR</Button>
       </Form>
       <Login>
         <Link to={"/"}>
           <p>Já tem uma conta? Faça login!</p>
         </Link>
       </Login>
-    </Body>
-    </>
+    </Container>
   );
 }
 
@@ -93,7 +115,7 @@ const Logo = styled.img`
   height: auto;
 `;
 
-const Body = styled.div`
+const Container = styled.div`
   background-color: #160F3D;
   width: 100vw;
   height: 100vh;

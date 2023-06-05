@@ -1,11 +1,38 @@
-import axios from "axios";
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useState, useContext } from 'react';
+import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
+
 import gif from '../assets/Animated Logo in Violet Gradient Tech Style.gif';
 import image from '../assets/Animated Logo in Violet Gradient Tech Style.jpg';
 
 export default function PaginaLogin() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+
+
+
+  function login(e) {
+    e.preventDefault();
+    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+    const body = { email, password };
+
+    const promise = axios.post(URL, body);
+    promise
+      .then((res) => {
+        localStorage.setItem('Image', res.data.image);
+        localStorage.setItem('Token', res.data.token);
+        navigate('/hoje');
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  }
+  
+
   const [showGif, setShowGif] = useState(true);
   const [showImage, setShowImage] = useState(false);
 
@@ -21,27 +48,40 @@ export default function PaginaLogin() {
   }, []);
 
   return (
-    <>
-    <Body>
-      <Form>
-        {showGif ? (
-          <Logo src={gif} alt="" />
-        ) : showImage ? (
-          <Logo src={image} alt="" />
-        ) : null}
-        <Input type="email" placeholder="EMAIL" name="email" />
-        <Input type="password" placeholder="SENHA" name="senha" />
-        <Button data-identifier="login-btn">LOGIN</Button>
+    <Container>
+      <Logo src={showGif ? gif : showImage ? image : ''} alt="" />
+      <Form onSubmit={login}>
+        <Input 
+          type="email" 
+          placeholder="EMAIL" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+        />
+        <div>
+          <Input  
+            type="password"
+            placeholder="SENHA"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <Button 
+        type="submit" 
+        onClick={login}
+        data-identifier="login-btn">
+          LOGIN
+        </Button>
       </Form>
       <Login>
         <Link to={"/cadastro"} data-identifier="sign-up-action">
           <p>Não tem uma conta? Cadastre-se!</p>
         </Link>
       </Login>
-    </Body>
-    </>
+    </Container>
   );
 }
+
+
 
 const Form = styled.div`
   display: flex;
@@ -92,10 +132,13 @@ const Logo = styled.img`
   height: auto;
 `;
 
-const Body = styled.div`
+const Container = styled.div`
   background-color: #160F3D;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 const Login = styled.div`
 display: flex;
