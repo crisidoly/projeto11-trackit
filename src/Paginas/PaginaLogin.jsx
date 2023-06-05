@@ -52,6 +52,7 @@ export default function PaginaLogin() {
       <Logo src={showGif ? gif : showImage ? image : ''} alt="" />
       <Form onSubmit={login}>
         <Input 
+          data-test="email-input"
           type="email" 
           placeholder="EMAIL" 
           value={email} 
@@ -59,6 +60,7 @@ export default function PaginaLogin() {
         />
         <div>
           <Input  
+          data-test="password-input"
             type="password"
             placeholder="SENHA"
             value={password}
@@ -68,12 +70,14 @@ export default function PaginaLogin() {
         <Button 
         type="submit" 
         onClick={login}
-        data-identifier="login-btn">
+        data-test="login-btn">
           LOGIN
         </Button>
       </Form>
       <Login>
-        <Link to={"/cadastro"} data-identifier="sign-up-action">
+        <Link 
+        to={"/cadastro"} 
+        data-test="signup-link">
           <p>Não tem uma conta? Cadastre-se!</p>
         </Link>
       </Login>

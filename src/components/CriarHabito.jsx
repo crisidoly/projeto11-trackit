@@ -96,11 +96,12 @@ export default function CriarHabito({ setHabits, token }) {
   };
 
   return (
-    <CriarHabitoContainer>
-      <BotaoCriarHabito onClick={toggleFormulario}>{mostrarFormulario ? '-' : '+'}</BotaoCriarHabito>
+    <CriarHabitoContainer data-test="habit-create-container">
+      <BotaoCriarHabito data-test="habit-create-btn" onClick={toggleFormulario}>{mostrarFormulario ? '-' : '+'}</BotaoCriarHabito>
       {mostrarFormulario && (
-        <FormularioHabito>
+        <FormularioHabito >
           <InputHabito
+            data-test="habit-name-input"
             type="text"
             value={nomeHabito}
             onChange={(event) => setNomeHabito(event.target.value)}
@@ -109,6 +110,7 @@ export default function CriarHabito({ setHabits, token }) {
           <SelecaoDias>
             {diasSemana.map((dia) => (
               <DiaSemana
+              data-test="habit-day"
                 key={dia.valor}
                 onClick={() => handleDiaClick(dia.valor)}
                 className={diasSelecionados.includes(dia.valor) ? "selected" : ""}
@@ -117,7 +119,7 @@ export default function CriarHabito({ setHabits, token }) {
               </DiaSemana>
             ))}
           </SelecaoDias>
-          <BotaoSalvar onClick={criarHabito}>Salvar</BotaoSalvar>
+          <BotaoSalvar data-test="habit-create-save" onClick={criarHabito}>Salvar</BotaoSalvar>
         </FormularioHabito>
       )}
       </CriarHabitoContainer>
@@ -126,11 +128,15 @@ export default function CriarHabito({ setHabits, token }) {
 
 const CriarHabitoContainer = styled.div`
   margin-top: 20px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 `;
 
 const DiaSemana = styled.button`
   width: 30px;
   height: 30px;
+  
 `;
 
 const BotaoCriarHabito = styled.button`
@@ -141,7 +147,7 @@ const BotaoCriarHabito = styled.button`
   color: white;
   border: none;
   border-radius: 100px;
-  margin-right: 20px;
+  margin-right: 12px;
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -150,10 +156,13 @@ const BotaoCriarHabito = styled.button`
 `;
 
 const FormularioHabito = styled.div`
-  background-color: yellow;
-  width: 340px;
+  background-color: #aaaaaa;
+  width: 90%;
   height: auto;
+  border-radius: 20px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InputHabito = styled.input`
@@ -161,17 +170,20 @@ const InputHabito = styled.input`
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  width: 310px;
 `;
 
 const SelecaoDias = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 10px;
+  justify-content: center;
 
   button {
     margin: 5px;
-    padding: 8px 16px;
     border: none;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,5 +203,8 @@ const HabitoCriado = styled.div`
 `;
 
 const BotaoSalvar = styled.button`
-
+  border-radius: 10px;
+  border: 0px;
+  width: 120px;
+  height: 25px;
 `

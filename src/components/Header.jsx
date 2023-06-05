@@ -14,10 +14,10 @@ export default function Header() {
   }, []);
 
   return (
-    <Container id="header-container">
+    <Container data-test="header" id="header-container">
       <Logo src={logo} />
       <Trackit src={trackit} />
-      <FotoUsuario src="https://onovomamaco.com.br/wp-content/uploads/2020/12/macaquinho-1024x1024.jpg" />
+      <FotoUsuario data-test="avatar"src="https://onovomamaco.com.br/wp-content/uploads/2020/12/macaquinho-1024x1024.jpg" />
     </Container>
   );
 }

@@ -16,18 +16,19 @@ export default function PaginaHoje() {
 
   return (
     <Container>
-      <Header />
+      <Header data-test="header"/>
       <Dia>
-        <Data>{hoje}</Data>
+        <Data data-test="today">{hoje}</Data>
         <HabitosHoje/>
       </Dia>
-      <Footer />
+      
+      <Footer data-test="menu"/>
     </Container>
   );
 }
 
 const Container = styled.div`
- background-color: #F2F2F2;
+  background-color: #F2F2F2;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -38,9 +39,8 @@ const Dia = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  height: 100vh;
-  width: 100vw;
+  background-color: #F2F2F2;
+
 `;
 
 const Data = styled.div`

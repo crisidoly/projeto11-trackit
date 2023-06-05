@@ -29,10 +29,10 @@ export default function PaginaHabitos() {
   return (
     <>
       <Container>
-        <Header/>
+        <Header data-test="header"/>
         <CriarHabito setHabits={setHabits} token={token} />
         <ListaHabitos habits={habits} excluirHabito={excluirHabito} />
-        <Footer/>
+        <Footer data-test="menu"/>
       </Container>
     </>
   );

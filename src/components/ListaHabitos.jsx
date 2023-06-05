@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 const ListaHabitos = ({ habits, excluirHabito }) => {
   return (
-    <Container>
+    <Container data-test="habit-container">
       <Ul>
         {habits.map((habit) => (
           <HabitoPronto key={habit.id}>
             <div>
-              <TituloHabito>{habit.name}</TituloHabito>
-              <DiasContainer>
+              <TituloHabito data-test="habit-name">{habit.name} </TituloHabito>
+              <DiasContainer data-test="habit-day">
                 {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((day, index) => (
                   <DiaSemana key={index} selected={habit.days.includes(index)}>
                     {day}
@@ -18,7 +18,7 @@ const ListaHabitos = ({ habits, excluirHabito }) => {
                 ))}
               </DiasContainer>
             </div>
-            <BotaoExcluir onClick={() => excluirHabito(habit.id)}>
+            <BotaoExcluir data-test="habit-delete-btn" onClick={() => excluirHabito(habit.id)}>
               <RiDeleteBinLine />
             </BotaoExcluir>
           </HabitoPronto>
@@ -30,6 +30,9 @@ const ListaHabitos = ({ habits, excluirHabito }) => {
 
 const Container = styled.div`
   height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
   overflow-y: auto;
 `;
 
@@ -38,7 +41,7 @@ const Ul = styled.ul`
   flex-direction: column;
   align-items: center;
   padding: 0;
-  width: 380px;
+  width: 100vw;
   margin: 0;
 `;
 
@@ -48,6 +51,7 @@ const HabitoPronto = styled.li`
   border-radius: 20px;
   padding: 10px;
   display: flex;
+  width: 90%;
   align-items: center;
   flex-direction: column;
 `;
@@ -64,8 +68,8 @@ const DiasContainer = styled.div`
 `;
 
 const DiaSemana = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
   margin: 5px;
   background-color: ${({ selected }) => (selected ? 'purple' : 'white')};
   display: flex;
@@ -83,6 +87,8 @@ const BotaoExcluir = styled.button`
   border: none;
   color: white;
   font-size: 20px;
+  font-family: "Lexend";
+  font-weight: 400;
   cursor: pointer;
   align-self: flex-end;
   margin-top: 10px;

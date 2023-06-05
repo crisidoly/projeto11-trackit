@@ -14,7 +14,7 @@ export default function PaginaLogin() {
   const [password, setPassword] = useState('');
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
-
+   
   const handleRegister = async (e) => {
     e.preventDefault();
     
@@ -52,14 +52,14 @@ export default function PaginaLogin() {
         ) : showImage ? (
           <Logo src={Logoimage} alt="" />
         ) : null}
-        <Input value={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder="EMAIL" name="email" required/>
-        <Input value={name} type="text" placeholder="NOME" onChange={(e) => setName(e.target.value)} name="nome" required />
-        <Input value={image} type="url" placeholder="FOTO" onChange={(e) => setImage(e.target.value)} name="foto" required />
-        <Input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="SENHA" name="senha" required/>
-        <Button type="submit" onClick={handleRegister}>CADASTRAR</Button>
+        <Input data-test="email-input" value={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder="EMAIL" name="email" required/>
+        <Input value={name} data-test="user-name-input"type="text" placeholder="NOME" onChange={(e) => setName(e.target.value)} name="nome" required />
+        <Input value={image} data-test="user-image-input" type="url" placeholder="FOTO" onChange={(e) => setImage(e.target.value)} name="foto" required />
+        <Input value={password} data-test="password-input" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="SENHA" name="senha" required/>
+        <Button type="submit" data-test="signup-btn" onClick={handleRegister}>CADASTRAR</Button>
       </Form>
       <Login>
-        <Link to={"/"}>
+        <Link data-test="login-link" to={"/"}>
           <p>Já tem uma conta? Faça login!</p>
         </Link>
       </Login>

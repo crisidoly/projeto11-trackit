@@ -6,8 +6,8 @@ export default function PaginaHistorico() {
   return (
     <>
       <Container>
-        <Header/>
-        <Footer/>
+        <Header data-test="header"/>
+        <Footer data-test="menu"/>
       </Container>
     </>
   )
